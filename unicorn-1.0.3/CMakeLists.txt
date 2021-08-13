@@ -20,7 +20,6 @@ project(unicorn C)
 set(UNICORN_VERSION_MAJOR 1)
 set(UNICORN_VERSION_MINOR 0)
 set(UNICORN_VERSION_PATCH 3)
-set(BUILD_SHARED_LIBS OFF)
 
 option(BUILD_SHARED_LIBS "Build shared instead of static library" ON)
 option(UNICORN_INSTALL "Install unicorn" ON)
@@ -185,19 +184,16 @@ else()
         set (TARGET_LIST "${TARGET_LIST}sparc-softmmu, sparc64-softmmu, ")
     endif()
     set (TARGET_LIST "${TARGET_LIST} ")
-    message("---------config 1---------")
     # GEN config-host.mak & target directories
     execute_process(COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/qemu/configure
         ${EXTRA_CFLAGS}
         ${TARGET_LIST}
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     )
-    message("---------config 2---------")
     execute_process(COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/qemu/scripts/create_config
         INPUT_FILE ${CMAKE_BINARY_DIR}/config-host.mak
         OUTPUT_FILE ${CMAKE_BINARY_DIR}/config-host.h
     )
-    message("---------config 3---------")
     if (UNICORN_HAS_X86)
         execute_process(COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/qemu/scripts/create_config
             INPUT_FILE ${CMAKE_BINARY_DIR}/x86_64-softmmu/config-target.mak

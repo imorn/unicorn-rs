@@ -5,7 +5,8 @@ fn main() {
     config
         .profile("Release")
         .pic(true)
-        .define("BUILD_SHARED_LIBS", "false")
+        .define("UNICORN_BUILD_SAMPLES","OFF")
+        .define("BUILD_SHARED_LIBS", "OFF")
         .build_target("unicorn");
     let mut dst = config.build();
     dst.push("build");
